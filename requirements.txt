@@ -1,0 +1,4 @@
+speedtest-cli
+GPUtil
+psutil
+requests
