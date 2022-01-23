@@ -4,15 +4,11 @@ import GPUtil
 import psutil
 import platform
 import speedtest
-import subprocess
 from time import asctime
 from requests import get
 
 
 def system_values():
-    subprocess.run(["pip", "install", "-r", "requirements.txt"])
-    print("\nAll libraries installed successfully.\n")
-    print("\nGetting info about your system...")
     new = dict()
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
@@ -48,17 +44,23 @@ def system_values():
 
 def write_data_to_file():
     data = system_values()
-    path = ""
-    if data["System"] == "Windows":
-        path = "C:\\Users\\durla\\AppData\\Local\\Temp\\System info.txt"
-    if data["System"] == "Linux":
-        path = "/tmp/System info.txt"
-    if data["System"] == "Darwin":
-        path = "/Library/Caches/TemporaryItems/Outlook Temp/System info.txt"
-    with open(path, "w", encoding="utf-8") as txt:
+    path_to_temp = ""
+    system_name = platform.system()
+    main_disk = os.environ['HOMEDRIVE']
+
+    if system_name == "Windows":
+        path_to_temp = f"{main_disk}\\Users\\{os.getlogin()}\\AppData\\Local\\Temp\\System info.txt"
+
+    if system_name == "Linux":
+        path_to_temp = "/tmp/System info.txt"
+
+    if system_name == "Darwin":
+        path_to_temp = "/Library/Caches/TemporaryItems/System info.txt"
+
+    with open(path_to_temp, "w", encoding="utf-8") as txt:
         for i in data.keys():
             txt.write(f"{i}: {data[i]}" + "\n")
-    os.startfile(path)
+    os.startfile(path_to_temp)
 
 
 write_data_to_file()
