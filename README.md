@@ -13,6 +13,7 @@ This scrypt shows system info.
 What do you need to do before using this scrypt:
 1) Install python (ver. 3.x)
 2) Install pip
+3) run conf.py
 
 File "requirements.txt" consists list of necessary libraries (scrypt will install them automatically).
 
