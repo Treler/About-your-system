@@ -1,5 +1,3 @@
-God damn.
-
 This scrypt shows system info.
 
 1) System name, release
